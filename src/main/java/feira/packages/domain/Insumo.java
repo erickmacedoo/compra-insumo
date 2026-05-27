@@ -1,6 +1,7 @@
 package feira.packages.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_insumo")
@@ -10,6 +11,7 @@ public class Insumo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome do insumo é obrigatório.")
     @Column(nullable = false, unique = true)
     private String nome;
 
