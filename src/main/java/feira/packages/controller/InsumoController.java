@@ -2,12 +2,15 @@ package feira.packages.controller;
 
 import feira.packages.domain.Insumo;
 import feira.packages.repository.InsumoRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/insumos")
 public class InsumoController {
@@ -25,7 +28,7 @@ public class InsumoController {
     }
 
     @PostMapping
-    public ResponseEntity<Insumo> salvar(@RequestBody Insumo insumo) {
+    public ResponseEntity<Insumo> salvar(@jakarta.validation.Valid @RequestBody Insumo insumo) { @Valid
         Insumo insumoSalvo = insumoRepository.save(insumo);
         return ResponseEntity.status(HttpStatus.CREATED).body(insumoSalvo);
     }
