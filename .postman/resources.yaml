@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: 5cb89c37-10e8-4dd7-811e-9a14de4ffe3b
+
+localResources:
+  docs:
+    - ..\scrum\PLANEJAMENTO_SCRUM.md

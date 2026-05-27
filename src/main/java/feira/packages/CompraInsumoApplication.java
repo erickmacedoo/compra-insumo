@@ -1,4 +1,4 @@
-package com.feiralivre.compra_insumo;
+package feira.packages;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
