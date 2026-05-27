@@ -10,7 +10,6 @@ import feira.packages.repository.CompraInsumoRepository;
 import feira.packages.repository.InsumoRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
