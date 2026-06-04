@@ -7,6 +7,7 @@ import feira.packages.exception.RegraNegocioException;
 import feira.packages.repository.ProdutoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -21,7 +22,15 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
+    public Optional<Produto> findById(Long id) {
+        return produtoRepository.findById(id);
+    }
+
     public Produto salvar(Produto produto) {
+        return produtoRepository.save(produto);
+    }
+
+    public Produto atualizar(Produto produto) {
         return produtoRepository.save(produto);
     }
 

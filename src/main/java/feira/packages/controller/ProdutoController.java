@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
@@ -31,6 +31,18 @@ public class ProdutoController {
     public ResponseEntity<Produto> salvar(@Valid @RequestBody Produto produto) {
         Produto produtoSalvo = produtoService.salvar(produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @Valid @RequestBody Produto produtoAtualizado) {
+        return produtoService.findById(id)
+            .map(produto -> {
+                produto.setNome(produtoAtualizado.getNome());
+                produto.setCategoria(produtoAtualizado.getCategoria());
+                Produto salvo = produtoService.atualizar(produto);
+                return ResponseEntity.ok(salvo);
+            })
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
