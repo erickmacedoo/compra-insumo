@@ -1,0 +1,5 @@
+<h1 style="text-align: center; margin-top: 20px;">🛒 Sistema de Compras de Produtos</h1>
+
+<app-form-produto #formComponent (produtoSalvo)="listaComponent.carregarProdutos()"></app-form-produto>
+<hr style="margin: 40px 0;">
+<app-lista-produtos #listaComponent (editarNoForm)="formComponent.carregarProdutoNoForm($event)"></app-lista-produtos>
