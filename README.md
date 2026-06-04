@@ -39,6 +39,16 @@ Para garantir a compatibilidade com a versão do Node instalada na máquina sem 
 ```bash
 npm start
 ```
+ou 
+```bash
+ng serve
+```
+Lembre-se de instalar as dependências do NPM, com o seguinte comando (na pasta frontend)
+```bash
+cd frontend
+npm install
+```
+
 O frontend estará acessível no navegador em: http://localhost:4200
 
 ---
