@@ -11,7 +11,7 @@ public class CompraInsumoResponse {
     private LocalDate dataPedido;
     private LocalDate dataRecebimento;
     private String status;
-    private String nomeInsumo;
+    private String nomeProduto;
 
     public CompraInsumoResponse() {}
 
@@ -22,7 +22,7 @@ public class CompraInsumoResponse {
         this.dataPedido = compra.getDataPedido();
         this.dataRecebimento = compra.getDataRecebimento();
         this.status = compra.getStatus().name();
-        this.nomeInsumo = compra.getInsumo().getNome();
+        this.nomeProduto = compra.getProduto().getNome();
     }
 
     public Long getId() { return id; }
@@ -31,5 +31,5 @@ public class CompraInsumoResponse {
     public LocalDate getDataPedido() { return dataPedido; }
     public LocalDate getDataRecebimento() { return dataRecebimento; }
     public String getStatus() { return status; }
-    public String getNomeInsumo() { return nomeInsumo; }
+    public String getNomeProduto() { return nomeProduto; }
 }

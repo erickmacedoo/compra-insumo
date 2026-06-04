@@ -1,13 +1,13 @@
 package feira.packages.service;
 
 import feira.packages.domain.CompraInsumo;
-import feira.packages.domain.Insumo;
+import feira.packages.domain.Produto;
 import feira.packages.domain.StatusCompra;
 import feira.packages.dto.CompraInsumoRequest;
 import feira.packages.dto.CompraInsumoResponse;
 import feira.packages.exception.*;
 import feira.packages.repository.CompraInsumoRepository;
-import feira.packages.repository.InsumoRepository;
+import feira.packages.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,22 +17,22 @@ import java.util.stream.Collectors;
 public class CompraInsumoService {
 
     private final CompraInsumoRepository compraInsumoRepository;
-    private final InsumoRepository insumoRepository;
+    private final ProdutoRepository insumoRepository;
 
-    public CompraInsumoService(CompraInsumoRepository compraInsumoRepository, InsumoRepository insumoRepository) {
+    public CompraInsumoService(CompraInsumoRepository compraInsumoRepository, ProdutoRepository insumoRepository) {
         this.compraInsumoRepository = compraInsumoRepository;
         this.insumoRepository = insumoRepository;
     }
 
     public CompraInsumoResponse cadastrar(CompraInsumoRequest request) {
 
-        Insumo insumo = insumoRepository.findById(request.getInsumoId())
-                .orElseThrow(() -> new RegraNegocioException("Insumo não encontrado."));
+        Produto produto = insumoRepository.findById(request.getInsumoId())
+                .orElseThrow(() -> new RegraNegocioException("Produto não encontrado."));
 
         CompraInsumo compra = new CompraInsumo(
                 request.getDescricao(),
                 request.getValorTotal(),
-                insumo
+                produto
         );
 
         compra = compraInsumoRepository.save(compra);

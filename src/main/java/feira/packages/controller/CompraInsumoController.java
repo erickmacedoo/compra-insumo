@@ -29,7 +29,7 @@ public class CompraInsumoController {
     }
 
     @PostMapping
-    public ResponseEntity<CompraInsumoResponse> salvar(@jakarta.validation.Valid @RequestBody CompraInsumoRequest request) { @Valid
+    public ResponseEntity<CompraInsumoResponse> salvar(@Valid @RequestBody CompraInsumoRequest request) {
         CompraInsumoResponse response = compraInsumoService.cadastrar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

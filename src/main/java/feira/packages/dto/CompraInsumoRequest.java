@@ -14,14 +14,14 @@ public class CompraInsumoRequest {
     private double valorTotal;
 
     @NotNull(message = "O ID do insumo é obrigatório.")
-    private Long insumoId;
+    private Long produtoId;
 
     public CompraInsumoRequest() {}
 
-    public CompraInsumoRequest(String descricao, double valorTotal, Long insumoId) {
+    public CompraInsumoRequest(String descricao, double valorTotal, Long produtoId) {
         this.descricao = descricao;
         this.valorTotal = valorTotal;
-        this.insumoId = insumoId;
+        this.produtoId = produtoId;
     }
 
     public String getDescricao() { return descricao; }
@@ -30,6 +30,6 @@ public class CompraInsumoRequest {
     public double getValorTotal() { return valorTotal; }
     public void setValorTotal(double valorTotal) { this.valorTotal = valorTotal; }
 
-    public Long getInsumoId() { return insumoId; }
-    public void setInsumoId(Long insumoId) { this.insumoId = insumoId; }
+    public Long getInsumoId() { return produtoId; }
+    public void setInsumoId(Long insumoId) { this.produtoId = insumoId; }
 }

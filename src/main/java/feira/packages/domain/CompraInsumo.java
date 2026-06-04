@@ -28,15 +28,15 @@ public class CompraInsumo {
     private StatusCompra status;
 
     @ManyToOne
-    @JoinColumn(name = "insumo_id", nullable = false)
-    private Insumo insumo;
+    @JoinColumn(name = "produto_id", nullable = false)
+    private Produto produto;
 
     public CompraInsumo() {}
 
-    public CompraInsumo(String descricao, double valorTotal, Insumo insumo) {
+    public CompraInsumo(String descricao, double valorTotal, Produto produto) {
         this.setDescricao(descricao);
         this.setValorTotal(valorTotal);
-        this.insumo = insumo;
+        this.produto = produto;
         this.dataPedido = LocalDate.now();
         this.status = StatusCompra.SOLICITADO;
         this.dataRecebimento = null;
@@ -48,7 +48,7 @@ public class CompraInsumo {
     public LocalDate getDataPedido() { return dataPedido; }
     public LocalDate getDataRecebimento() { return dataRecebimento; }
     public StatusCompra getStatus() { return status; }
-    public Insumo getInsumo() { return insumo; }
+    public Produto getProduto() { return produto; }
 
     public void setId(Long id) { this.id = id; }
     
@@ -72,6 +72,6 @@ public class CompraInsumo {
     public void setDataPedido(LocalDate dataPedido) { this.dataPedido = dataPedido; }
     public void setDataRecebimento(LocalDate dataRecebimento) { this.dataRecebimento = dataRecebimento; }
     public void setStatus(StatusCompra status) { this.status = status; }
-    public void setInsumo(Insumo insumo) { this.insumo = insumo; }
+    public void setProduto(Produto produto) { this.produto = produto; }
 
 }
