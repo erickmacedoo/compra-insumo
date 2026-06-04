@@ -1,7 +1,7 @@
 package feira.packages.controller;
 
 import feira.packages.domain.Produto;
-import feira.packages.repository.ProdutoRepository;
+import feira.packages.service.ProdutoService;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -15,30 +15,28 @@ import java.util.List;
 @RequestMapping("/api/produtos")
 public class ProdutoController {
     
-    private final ProdutoRepository produtoService;
+    private final ProdutoService produtoService;
 
-    public ProdutoController(ProdutoRepository produtoService) {
+    public ProdutoController(ProdutoService produtoService) {
         this.produtoService = produtoService;
     }
 
     @GetMapping
     public ResponseEntity<List<Produto>> listarTodos() {
-        List<Produto> produtos = produtoService.findAll();
+        List<Produto> produtos = produtoService.listarTodos();
         return ResponseEntity.ok(produtos);
     }
 
     @PostMapping
-    public ResponseEntity<Produto> salvar(@jakarta.validation.Valid @RequestBody Produto produto) { @Valid
-        Produto produtoSalvo = produtoService.save(produto);
+    public ResponseEntity<Produto> salvar(@Valid @RequestBody Produto produto) {
+        Produto produtoSalvo = produtoService.salvar(produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Long id) {
-        if (!produtoService.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        produtoService.deleteById(id);
+        produtoService.remover(id);
+
         return ResponseEntity.noContent().build();
     }
 

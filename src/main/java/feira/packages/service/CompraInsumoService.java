@@ -17,16 +17,16 @@ import java.util.stream.Collectors;
 public class CompraInsumoService {
 
     private final CompraInsumoRepository compraInsumoRepository;
-    private final ProdutoRepository insumoRepository;
+    private final ProdutoRepository produtoRepository;
 
-    public CompraInsumoService(CompraInsumoRepository compraInsumoRepository, ProdutoRepository insumoRepository) {
+    public CompraInsumoService(CompraInsumoRepository compraInsumoRepository, ProdutoRepository produtoRepository) {
         this.compraInsumoRepository = compraInsumoRepository;
-        this.insumoRepository = insumoRepository;
+        this.produtoRepository = produtoRepository;
     }
 
     public CompraInsumoResponse cadastrar(CompraInsumoRequest request) {
 
-        Produto produto = insumoRepository.findById(request.getInsumoId())
+        Produto produto = produtoRepository.findById(request.getProdutoId())
                 .orElseThrow(() -> new RegraNegocioException("Produto não encontrado."));
 
         CompraInsumo compra = new CompraInsumo(

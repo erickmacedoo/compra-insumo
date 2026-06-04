@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<String> handleRegraNegocioException(RegraNegocioException ex) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
     
     @ExceptionHandler(MethodArgumentNotValidException.class)

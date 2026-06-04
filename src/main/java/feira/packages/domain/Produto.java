@@ -6,12 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
-    @NotBlank(message = "O nome do produto é obrigatório.")
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome do produto é obrigatório.")
     @Column(nullable = false, unique = true)
     private String nome;
 

@@ -30,6 +30,6 @@ public class CompraInsumoRequest {
     public double getValorTotal() { return valorTotal; }
     public void setValorTotal(double valorTotal) { this.valorTotal = valorTotal; }
 
-    public Long getInsumoId() { return produtoId; }
-    public void setInsumoId(Long insumoId) { this.produtoId = insumoId; }
+    public Long getProdutoId() { return produtoId; }
+    public void setProdutoId(Long produtoId) { this.produtoId = produtoId; }
 }
