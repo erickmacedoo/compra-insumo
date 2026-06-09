@@ -1,6 +1,21 @@
-<h1 style="text-align: center; margin-top: 20px;">🛒 Sistema de Compras de Insumos</h1>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>🛒 Feira-Livre</h2>
+    </div>
+    <nav class="menu">
+      <a routerLink="/produtos" routerLinkActive="ativo" class="menu-item">📦 Insumos</a>
+      <a routerLink="/categorias" routerLinkActive="ativo" class="menu-item">🏷️ Categorias</a>
+    </nav>
+  </aside>
 
-<app-form-produto #formComponent (produtoSalvo)="listaComponent.carregarProdutos()"></app-form-produto>
-<hr style="margin: 40px 0;">
-<app-lista-produtos #listaComponent (editarNoForm)="formComponent.carregarProdutoNoForm($event)"></app-lista-produtos>
-<app-lista-categorias #categoriasComponent></app-lista-categorias>
+  <main class="content">
+    <header class="topbar">
+      <h1>Painel de Controle</h1>
+    </header>
+    
+    <div class="conteudo-dinamico">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

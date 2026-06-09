@@ -1,0 +1,6 @@
+<div class="card-dashboard">
+  <h2>📦 Gestão de Insumos</h2>
+  <app-form-produto #formComponent (produtoSalvo)="listaComponent.carregarProdutos()"></app-form-produto>
+  <hr class="divisor">
+  <app-lista-produtos #listaComponent (editarNoForm)="formComponent.carregarProdutoNoForm($event)"></app-lista-produtos>
+</div>
