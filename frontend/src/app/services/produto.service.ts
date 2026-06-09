@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProdutoService {
 
-  private apiUrl = 'https://backend-compra-insumo.onrender.com/produtos';
+  private apiUrl = 'https://backend-compra-insumo.onrender.com/api/produtos';
 
   constructor(private http: HttpClient) { }
 
