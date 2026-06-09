@@ -1,5 +1,9 @@
 package feira.packages.controller;
 
+import feira.packages.domain.Categoria;
+import feira.packages.dto.ProdutoRequest;
+import feira.packages.repository.CategoriaRepository;
+
 import feira.packages.domain.Produto;
 import feira.packages.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -16,9 +20,11 @@ import java.util.List;
 public class ProdutoController {
     
     private final ProdutoService produtoService;
+    private final CategoriaRepository categoriaRepository;
 
-    public ProdutoController(ProdutoService produtoService) {
+    public ProdutoController(ProdutoService produtoService, CategoriaRepository categoriaRepository) {
         this.produtoService = produtoService;
+        this.categoriaRepository = categoriaRepository;
     }
 
     @GetMapping
@@ -28,19 +34,22 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> salvar(@Valid @RequestBody Produto produto) {
-        Produto produtoSalvo = produtoService.salvar(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
-    }
+    public ResponseEntity<Produto> salvar(@Valid @RequestBody ProdutoRequest request) {
+        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));
+        Produto produto = new Produto(request.getNome(), categoria);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.salvar(produto));
+}
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @Valid @RequestBody Produto produtoAtualizado) {
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @Valid @RequestBody ProdutoRequest request) {
         return produtoService.findById(id)
             .map(produto -> {
-                produto.setNome(produtoAtualizado.getNome());
-                produto.setCategoria(produtoAtualizado.getCategoria());
-                Produto salvo = produtoService.atualizar(produto);
-                return ResponseEntity.ok(salvo);
+                Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
+                        .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));
+                produto.setNome(request.getNome());
+                produto.setCategoria(categoria);
+                return ResponseEntity.ok(produtoService.atualizar(produto));
             })
             .orElse(ResponseEntity.notFound().build());
     }

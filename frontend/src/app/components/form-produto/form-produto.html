@@ -17,10 +17,10 @@
 
     <div class="form-group">
       <label for="categoria">Categoria do Produto:</label>
-      <select id="categoria" name="categoria" [(ngModel)]="categoriaSelecionada" required>
-        <option value="" disabled selected>Selecione uma categoria...</option>
-        <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
-      </select>
+        <select id="categoria" name="categoria" [(ngModel)]="categoriaSelecionadaId" required>
+          <option [ngValue]="null" disabled>Selecione uma categoria...</option>
+          <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{ cat.nome }}</option>
+        </select>
     </div>
 
     <button *ngIf="!produto.id"type="button" class="btn-salvar"(click)="salvar()" style="margin-top: 10px;">

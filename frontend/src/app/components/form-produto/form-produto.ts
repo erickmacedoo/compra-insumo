@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CategoriaService } from '../../services/categoria.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProdutoService } from '../../services/produto.service';
@@ -15,29 +16,38 @@ export class FormProdutoComponent {
   @Output() produtoSalvo = new EventEmitter<void>();
   produto: any = { nome: '' }; 
   
-  categoriaSelecionada: string = ''; 
-  categorias: string[] = ['Frutas', 'Verduras', 'Legumes', 'Temperos', 'Cereais e Grãos'];
+  categorias: any[] = [];
+  categoriaSelecionadaId: number | null = null;
 
   mensagemSucesso: string = '';
   mensagemErro: string = '';
 
-  constructor(private produtoService: ProdutoService) {}
+  constructor(private produtoService: ProdutoService, private categoriaService: CategoriaService) {
+    this.carregarCategorias();
+  }
+
+  carregarCategorias(): void {
+    this.categoriaService.listarTodas().subscribe({
+      next: (dados) => this.categorias = dados,
+      error: () => console.error('Erro ao carregar categorias')
+    });
+  }
 
   salvar(): void {
-    console.log("Botão foi Clicado. Dados atuais:", this.produto, this.categoriaSelecionada)
+    console.log("Botão foi Clicado. Dados atuais:", this.produto, this.categoriaSelecionadaId)
     this.mensagemSucesso = '';
     this.mensagemErro = '';
 
-    if (!this.produto.nome || !this.categoriaSelecionada) {
+    if (!this.produto.nome || !this.categoriaSelecionadaId) {
       this.mensagemErro = 'Por favor, preencha o nome e selecione uma categoria.';
       return;
     }
 
-    this.produtoService.salvar({ nome: this.produto.nome, categoria: this.categoriaSelecionada }).subscribe({
+    this.produtoService.salvar({ nome: this.produto.nome, categoriaId: this.categoriaSelecionadaId }).subscribe({
       next: (res) => {
         this.mensagemSucesso = 'Produto cadastrado com sucesso!';
         this.produto = { nome: '' };
-        this.categoriaSelecionada = '';
+        this.categoriaSelecionadaId = null;
         this.produtoSalvo.emit();
 
         this.atualizar();
@@ -51,7 +61,7 @@ export class FormProdutoComponent {
 
   carregarProdutoNoForm(produtoSelecionado: any) {
   this.produto = { ...produtoSelecionado };
-  this.categoriaSelecionada = produtoSelecionado.categoria;
+  this.categoriaSelecionadaId = produtoSelecionado.categoria?.id ?? null;
 }
 
 
@@ -60,13 +70,13 @@ export class FormProdutoComponent {
 
     this.produtoService.atualizar(this.produto.id, {
       nome: this.produto.nome,
-      categoria: this.categoriaSelecionada
+      categoriaId: this.categoriaSelecionadaId
     }).subscribe({
       next: (res) => {
         this.mensagemSucesso = 'Produto atualizado com sucesso!';
-        this.produto = { nome: '' }; // Limpa o form
-        this.categoriaSelecionada = '';
-        this.produtoSalvo.emit(); // Atualiza a tabela na tela
+        this.produto = { nome: '' };
+        this.categoriaSelecionadaId = null;
+        this.produtoSalvo.emit();
       },
       error: (err) => this.mensagemErro = 'Erro ao atualizar produto.'
     });

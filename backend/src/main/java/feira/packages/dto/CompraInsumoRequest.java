@@ -16,12 +16,16 @@ public class CompraInsumoRequest {
     @NotNull(message = "O ID do insumo é obrigatório.")
     private Long produtoId;
 
+    @NotNull(message = "A categoria é obrigatória.")
+    private Long categoriaId;
+
     public CompraInsumoRequest() {}
 
-    public CompraInsumoRequest(String descricao, double valorTotal, Long produtoId) {
+    public CompraInsumoRequest(String descricao, double valorTotal, Long produtoId, Long categoriaId) {
         this.descricao = descricao;
         this.valorTotal = valorTotal;
         this.produtoId = produtoId;
+        this.categoriaId = categoriaId;
     }
 
     public String getDescricao() { return descricao; }
@@ -30,6 +34,9 @@ public class CompraInsumoRequest {
     public double getValorTotal() { return valorTotal; }
     public void setValorTotal(double valorTotal) { this.valorTotal = valorTotal; }
 
+    public Long getCategoriaId() { return categoriaId; }
+    public void setCategoriaId(Long categoriaId) { this.categoriaId = categoriaId; }
+    
     public Long getProdutoId() { return produtoId; }
     public void setProdutoId(Long produtoId) { this.produtoId = produtoId; }
 }

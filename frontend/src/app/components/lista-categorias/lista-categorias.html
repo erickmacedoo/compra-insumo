@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>🏷️ Categorias Cadastradas</h2>
+
+  <div *ngIf="mensagemSucesso" class="alert alert-success">{{ mensagemSucesso }}</div>
+  <div *ngIf="mensagemErro" class="alert alert-danger">{{ mensagemErro }}</div>
+
+  <table *ngIf="categorias.length > 0; else semCategorias">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of categorias">
+        <td>{{ cat.id }}</td>
+        <td>
+          <span *ngIf="categoriaEmEdicao?.id !== cat.id">{{ cat.nome }}</span>
+          <input *ngIf="categoriaEmEdicao?.id === cat.id" [(ngModel)]="nomeEditando" type="text">
+        </td>
+        <td>
+          <ng-container *ngIf="categoriaEmEdicao?.id !== cat.id">
+            <button class="btn-editar" (click)="iniciarEdicao(cat)">✏️ Editar</button>
+            <button class="btn-deletar" (click)="remover(cat.id)">Excluir</button>
+          </ng-container>
+          <ng-container *ngIf="categoriaEmEdicao?.id === cat.id">
+            <button class="btn-salvar" (click)="salvarEdicao()">💾 Salvar</button>
+            <button class="btn-cancelar" (click)="cancelarEdicao()">Cancelar</button>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #semCategorias>
+    <p>Nenhuma categoria cadastrada.</p>
+  </ng-template>
+</div>

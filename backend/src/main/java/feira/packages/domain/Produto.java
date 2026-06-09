@@ -1,5 +1,7 @@
 package feira.packages.domain;
-
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import feira.packages.domain.Categoria;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -15,11 +17,12 @@ public class Produto {
     @Column(nullable = false, unique = true)
     private String nome;
 
-    @Column
-    private String categoria;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Produto() {}
-    public Produto(String nome, String categoria) {
+    public Produto(String nome, Categoria categoria) {
         this.nome = nome;
         this.categoria = categoria;
     }
@@ -28,6 +31,6 @@ public class Produto {
     public void setId(Long id) { this.id = id; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 }
